@@ -4,7 +4,9 @@
   "description": "Command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "mysql": "mysql -u root -p",
+    "start": "node ./index.js"
   },
   "repository": {
     "type": "git",
