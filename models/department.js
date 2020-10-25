@@ -25,7 +25,22 @@ const getDepartmentID = (departmentName) => {
   });
 };
 
+const insertDepartment = (departmentName) => {
+  return new Promise((resolve, reject) => {
+    const query = "INSERT INTO department (name) VALUES (?)";
+    mysql.query(query, [departmentName], err => {
+      if (err) {
+        reject(err);
+      } else {
+        console.log('Success');
+        resolve();
+      }
+    });
+  });
+};
+
 module.exports = {
   getDepartmentID,
   getAllDepartments,
+  insertDepartment
 };

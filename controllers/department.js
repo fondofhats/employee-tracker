@@ -1,4 +1,9 @@
-const { getAllDepartments } = require("../models/department");
+const inquirer = require('inquirer');
+
+const { 
+  getAllDepartments,
+  insertDepartment
+ } = require("../models/department");
 const { displayHeadline, displayFooter } = require("../utils/logging");
 
 async function getAllDepartmentNames() {
@@ -27,7 +32,25 @@ async function displayAllDepartments() {
   }
 }
 
+async function addDepartment() {
+  try {
+    const department = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Enter the new department you would like to add '
+      }
+    ]);
+
+    await insertDepartment(department.name);
+  } catch (err) {
+    if (err) throw err;
+  }
+}
+
+
 module.exports = {
   getAllDepartmentNames,
   displayAllDepartments,
+  addDepartment
 };
