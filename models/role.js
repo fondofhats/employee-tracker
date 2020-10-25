@@ -33,7 +33,7 @@ const getAllRoles = () => {
 
   const getRoleID = (roleTitle) => {
     return new Promise((resolve, reject) => {
-      const query = "SELECT id FROM role WHERE title = ?"
+      const query = "SELECT id FROM role WHERE title = ?";
       mysql.query(query, [roleTitle], (err, results, fields) => {
         if (err) {
           reject(err);

@@ -11,7 +11,8 @@ const {
     getAllManagers,
     insertEmployee,
     setEmployeeManager,
-    deleteEmployee
+    deleteEmployee,
+    setEmployeeRole
   } = require('../models/employee');
   const { getAllDepartmentNames } = require('./department');
   const { getDepartmentID } = require('../models/department');
@@ -167,11 +168,79 @@ async function displayAllEmployeesByManager() {
     }
   }  
 
+  async function updateEmployeeManager() {
+    try {
+      // Get the list of employees
+      let employees = await getAllEmployees();
+  
+      let employee = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'name',
+          message: 'Please select an employee: ',
+          choices: employees
+        }
+      ]);
+  
+      employee = employee.name;
+      employees = employees.filter(el => el !== employee);
+  
+      const manager = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'name',
+          message: 'Please select an employee to assign as the manager: ',
+          choices: employees
+        }
+      ]);
+  
+      manager.id = await getEmployeeID(manager.name);
+  
+      await setEmployeeManager(employee, manager.id);
+    } catch (err) {
+      if (err) throw err;
+    }
+  }
+
+  async function updateEmployeeRole() {
+    try {
+      // Get the list of employees
+      let employees = await getAllEmployees();
+  
+      let employee = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'name',
+          message: 'Please select an employee: ',
+          choices: employees
+        }
+      ]);
+  
+      const titles = await getAllTitles();
+  
+      const role = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'title',
+          message: "Please select a role as the employee's new role: ",
+          choices: titles
+        }
+      ]);
+      const roleId = await getRoleID(role.title);
+      await setEmployeeRole(employee.name, roleId);
+    } catch (err) {
+      if (err) throw err;
+    }
+  }
+
+
 module.exports = {
     displayAllEmployees,
     displayAllEmployeesByDepartment,
     displayAllEmployeesByManager,
     addEmployee,
-    removeEmployee
+    removeEmployee,
+    updateEmployeeManager,
+    updateEmployeeRole
   };
   
