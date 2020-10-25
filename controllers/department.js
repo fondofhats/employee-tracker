@@ -3,10 +3,6 @@ const {
   } = require('../models/department');
   const { displayHeadline, displayFooter } = require('../utils/logging');
 
-/**
- * @description   Retrievess all depatment names
- * @returns       An array object of department names
- */
 async function getAllDepartmentNames() {
     try {
       const departments = await getAllDepartments();

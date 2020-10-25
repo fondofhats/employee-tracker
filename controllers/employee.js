@@ -13,9 +13,6 @@ const {
   const { getDepartmentID } = require('../models/department');
   const { displayHeadline, displayFooter } = require('../utils/logging');
 
-/**
- * @description   Retrieves and displays all employees
- */
 async function displayAllEmployees() {
     try {
       const employees = await getAllEmployeesDetails();
@@ -38,9 +35,6 @@ async function displayAllEmployees() {
     }
   }
   
-  /**
- * @description   Retrieves and displays all employees in a department
- */
 async function displayAllEmployeesByDepartment() {
     try {
       const departmentNames = await getAllDepartmentNames();
@@ -66,9 +60,6 @@ async function displayAllEmployeesByDepartment() {
     }
   }
 
-/**
- * @description   Retrieves and displays all employees under a manager
- */
 async function displayAllEmployeesByManager() {
     try {
       const managers = await getAllManagers();
