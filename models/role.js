@@ -44,8 +44,39 @@ const getAllRoles = () => {
     });
   };  
 
+  const insertRole = (role) => {
+    return new Promise((resolve, reject) => {
+      const query =
+        `INSERT INTO role (title, salary, department_id)
+       VALUES (?, ?, ?)`;
+      mysql.query(query, [role.title, role.salary, role.departmentID], err => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve('Success');
+        }
+      });
+    });
+  };
+
+  const deleteRole = (roleTitle) => {
+    return new Promise((resolve, reject) => {
+      const query = "DELETE FROM role WHERE title = ?";
+      mysql.query(query, [roleTitle], err => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve('Success');
+        }
+      });
+    });
+  };
+
+
 module.exports = {
     getAllRoles,
     getAllTitles,
-    getRoleID
+    getRoleID,
+    insertRole,
+    deleteRole
   };

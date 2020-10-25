@@ -10,7 +10,11 @@ const {
     updateEmployeeManager,
     updateEmployeeRole
   } = require('./controllers/employee');
-  const { displayAllRoles } = require('./controllers/role');
+  const { 
+      displayAllRoles,
+      addRole,
+      removeRole
+    } = require('./controllers/role');
   const { 
       displayAllDepartments,
       addDepartment,
@@ -97,10 +101,12 @@ async function promptUser() {
             promptUser();
             break;
         case "add role":
-            console.log("add role");
+            await addRole();
+            promptUser();
             break;
         case "remove role":
-            console.log("remove role");
+            await removeRole();
+            promptUser();
             break;
         case "view total budget":
             console.log("view total budget");
