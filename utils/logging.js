@@ -27,7 +27,8 @@ function displayHeadline(str) {
 }
 
 function displayResults(result) {
-  CFonts.say(`${result.toUpperCase()}\n`, {
+  console.table(result);
+  /* CFonts.say(`${result.toUpperCase()}\n`, {
     font: "console", // define the font face
     align: "left", // define text alignment
     colors: ["green"], // define all colors
@@ -40,7 +41,7 @@ function displayResults(result) {
     independentGradient: false, // define if you want to recalculate the gradient for each new line
     transitionGradient: false, // define if this is a transition between colors directly
     env: "node", // define the environment CFonts is being executed in
-  });
+  }); */
 }
 
 function displayFooter(headline) {
