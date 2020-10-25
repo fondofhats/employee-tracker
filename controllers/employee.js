@@ -2,9 +2,12 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 
 const {
+    getEmployeeID,
     getAllEmployeesDetails,
     getManagerByID,
-    getAllEmployeesByDepartment
+    getAllEmployeesByDepartment,
+    getAllEmployeesByManager,
+    getAllManagers
   } = require('../models/employee');
   const { getAllDepartmentNames } = require('./department');
   const { getDepartmentID } = require('../models/department');
@@ -63,8 +66,36 @@ async function displayAllEmployeesByDepartment() {
     }
   }
 
+/**
+ * @description   Retrieves and displays all employees under a manager
+ */
+async function displayAllEmployeesByManager() {
+    try {
+      const managers = await getAllManagers();
+      const manager = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'name',
+          message: 'Please select a department ?',
+          choices: managers
+        }
+      ]);
+  
+      const managerID = await getEmployeeID(manager.name);
+  
+      const employeesManaged = await getAllEmployeesByManager(managerID);
+  
+      const footer = displayHeadline(`All Employees under ${manager.name}`);
+      console.table(employeesManaged);
+      displayFooter(footer);
+    } catch (err) {
+      if (err) throw err;
+    }
+  }  
+
 module.exports = {
     displayAllEmployees,
-    displayAllEmployeesByDepartment
+    displayAllEmployeesByDepartment,
+    displayAllEmployeesByManager
   };
   

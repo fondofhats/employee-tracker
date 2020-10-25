@@ -3,7 +3,8 @@ const db = require("./db/database");
 const displayBanner = require('./utils/banner');
 const {
     displayAllEmployees,
-    displayAllEmployeesByDepartment
+    displayAllEmployeesByDepartment,
+    displayAllEmployeesByManager
   } = require('./controllers/employee');
 
 async function Init() {
@@ -50,7 +51,8 @@ async function promptUser() {
             promptUser();
             break;
         case "view all employees by manager":
-            console.log("view all employees by manager");
+            await displayAllEmployeesByManager();
+            promptUser();
             break;
         case "view all roles":
             console.log("view all roles");
