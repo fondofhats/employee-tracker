@@ -7,6 +7,7 @@ const {
     displayAllEmployeesByManager
   } = require('./controllers/employee');
   const { displayAllRoles } = require('./controllers/role');
+  const { displayAllDepartments } = require('./controllers/department');
 
 async function Init() {
     db.setupDB();
@@ -60,7 +61,8 @@ async function promptUser() {
             promptUser();
             break;
         case "view all departments":
-            console.log("view all departments");
+            await displayAllDepartments();
+            promptUser();
             break;
         case "add employee":
             console.log("add employee");
