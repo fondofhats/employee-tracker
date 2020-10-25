@@ -1,8 +1,15 @@
 const inquirer = require("inquirer");
 const db = require("./db/database");
-var endApp = false;
+const displayBanner = require('./utils/banner');
+  
 
-const promptUser = () => {
+async function Init() {
+    db.setupDB();
+    await displayBanner();
+    await promptUser();
+}
+
+const promptUser = async () => {
     return inquirer.prompt([
         {
             type: "list",
@@ -89,10 +96,5 @@ const promptUser = () => {
           }            
     });
 };
-
-function Init() {
-    db.setupDB();
-    promptUser();
-}
 
 Init();
