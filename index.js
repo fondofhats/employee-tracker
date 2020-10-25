@@ -10,12 +10,11 @@ const {
     updateEmployeeManager,
     updateEmployeeRole
   } = require('./controllers/employee');
-  const { displayAllRoles } = require('./controllers/role');
   const { 
-      displayAllDepartments,
-      addDepartment,
-      removeDepartment
-     } = require('./controllers/department');
+      displayAllRoles, 
+      addRole
+    } = require('./controllers/role');
+  const { displayAllDepartments } = require('./controllers/department');
 
 async function Init() {
     db.setupDB();
@@ -88,16 +87,18 @@ async function promptUser() {
             await updateEmployeeRole();
             promptUser();
             break;
+        case "update employee department":
+            console.log("update employee department");
+            break;
         case "add department":
-            await addDepartment();
-            promptUser();
+            console.log("add department");
             break;
         case "remove department":
-            await removeDepartment();
-            promptUser();
+            console.log("remove department");
             break;
         case "add role":
-            console.log("add role");
+            await addRole();
+            promptUser();
             break;
         case "remove role":
             console.log("remove role");
