@@ -1,7 +1,8 @@
 const CFonts = require("cfonts");
 
 function displayHeadline(str) {
-  let headline = "------------------------------    ";
+  let headline = "\n";
+  headline += "------------------------------    ";
   headline += str.toUpperCase();
   headline += "    ------------------------------";
   headline += "\n";
