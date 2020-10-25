@@ -12,8 +12,27 @@ function getTotalBudget() {
         }
       });
     });
-  }
+}
+
+function getTotalBudgetByDepartment(departmentID) {
+    return new Promise((resolve, reject) => {
+      const query =
+        `SELECT SUM(salary) AS 'Total Department Budget'
+        FROM employee
+        LEFT JOIN role ON employee.role_id=role.id
+        WHERE role.department_id = ?`;
+      mysql.query(query, [departmentID], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results[0]['Total Department Budget']);
+        }
+      });
+    });
+}
+  
 
   module.exports = {
-    getTotalBudget
+    getTotalBudget,
+    getTotalBudgetByDepartment
   };  

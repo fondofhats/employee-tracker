@@ -20,7 +20,10 @@ const {
   addDepartment,
   removeDepartment,
 } = require("./controllers/department");
-const { displayTotalBudget } = require("./controllers/budget");
+const { 
+    displayTotalBudget,
+    displayTotalDepartmentBudget
+ } = require("./controllers/budget");
 
 async function Init() {
   db.setupDB();
@@ -114,7 +117,8 @@ async function promptUser() {
       promptUser();
       break;
     case "view total department budget":
-      console.log("view total department budget");
+        await displayTotalDepartmentBudget();
+        promptUser();
       break;
     case "exit":
       console.log("Have a nice day!");
