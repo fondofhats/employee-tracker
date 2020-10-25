@@ -5,7 +5,8 @@ const {
     displayAllEmployees,
     displayAllEmployeesByDepartment,
     displayAllEmployeesByManager,
-    addEmployee
+    addEmployee,
+    removeEmployee
   } = require('./controllers/employee');
   const { displayAllRoles } = require('./controllers/role');
   const { displayAllDepartments } = require('./controllers/department');
@@ -70,7 +71,8 @@ async function promptUser() {
             promptUser();
             break;
         case "remove employee":
-            console.log("remove employee");
+            await removeEmployee();
+            promptUser();
             break;
         case "update employee manager":
             console.log("update employee manager");

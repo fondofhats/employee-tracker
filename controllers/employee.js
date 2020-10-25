@@ -9,7 +9,9 @@ const {
     getAllEmployeesByDepartment,
     getAllEmployeesByManager,
     getAllManagers,
-    insertEmployee
+    insertEmployee,
+    setEmployeeManager,
+    deleteEmployee
   } = require('../models/employee');
   const { getAllDepartmentNames } = require('./department');
   const { getDepartmentID } = require('../models/department');
@@ -130,10 +132,46 @@ async function displayAllEmployeesByManager() {
     }
   }  
 
+  async function removeEmployee() {
+    try {
+      // Get the list of employees from employee table
+      const employees = await getAllEmployees();
+  
+      const employee = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'name',
+          message: 'Which employee would you like to remove ?',
+          choices: employees
+        }
+      ]);
+  
+      const managers = await getAllManagers();
+  
+      if (managers.includes(employee.name)) {
+        const managerID = await getEmployeeID(employee.name);
+        const employeesManaged = await getAllEmployeesByManager(managerID);
+  
+        for (let employeeManaged of employeesManaged) {
+          employeeManaged =
+            employeeManaged['First Name'] + ' ' + employeeManaged['Last Name'];
+          setEmployeeManager(employeeManaged);
+        }
+  
+        deleteEmployee(employee.name);
+      } else {
+        deleteEmployee(employee.name);
+      }
+    } catch (err) {
+      if (err) throw err;
+    }
+  }  
+
 module.exports = {
     displayAllEmployees,
     displayAllEmployeesByDepartment,
     displayAllEmployeesByManager,
-    addEmployee
+    addEmployee,
+    removeEmployee
   };
   

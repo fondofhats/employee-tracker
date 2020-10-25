@@ -173,6 +173,56 @@ const insertEmployee = employee => {
     });
   };
 
+const setEmployeeManager = (employee, managerID = null) => {
+    return new Promise((resolve, reject) => {
+      const firstName = employee.split(' ')[0];
+      const lastName = employee.split(' ')[1];
+      let query = '';
+      if (managerID) {
+        query =
+          'UPDATE employee SET manager_id = ? WHERE first_name = ? AND last_name = ?';
+        mysql.query(
+          query,
+          [managerID, firstName, lastName],
+          (err, results, fields) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              resolve('Success');
+            }
+          }
+        );
+      } else {
+        query =
+          'UPDATE employee SET manager_id = null WHERE first_name = ? AND last_name = ?';
+        mysql.query(query, [firstName, lastName], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve('Success');
+          }
+        });
+      }
+    });
+  };  
+
+const deleteEmployee = employeeName => {
+    return new Promise((resolve, reject) => {
+      const firstName = employeeName.split(' ')[0];
+      const lastName = employeeName.split(' ')[1];
+      let query = 'DELETE FROM employee WHERE first_name = ? AND last_name = ?';
+      mysql.query(query, [firstName, lastName], err => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log('Success');
+          resolve();
+        }
+      });
+    });
+  };  
+
 module.exports = {
   getAllEmployees,
   getEmployeeID,
@@ -181,5 +231,7 @@ module.exports = {
   getAllEmployeesByDepartment,
   getAllEmployeesByManager,
   getAllManagers,
-  insertEmployee
+  insertEmployee,
+  setEmployeeManager,
+  deleteEmployee
 };
