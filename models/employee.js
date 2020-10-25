@@ -134,6 +134,45 @@ const getAllManagers = () => {
     });
   };  
 
+const insertEmployee = employee => {
+    return new Promise((resolve, reject) => {
+      if (employee.managerID) {
+        const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES(?, ?, ?, ?)`;
+        mysql.query(
+          query,
+          [
+            employee.firstName,
+            employee.lastName,
+            employee.roleID,
+            employee.managerID
+          ],
+          err => {
+            if (err) {
+              reject(err);
+            } else {
+              console.log('Success');
+              resolve();
+            }
+          }
+        );
+      } else {
+        const query = `INSERT INTO employee (first_name, last_name, role_id) VALUES(?, ?, ?)`;
+        mysql.query(
+          query,
+          [employee.firstName, employee.lastName, employee.roleID],
+          err => {
+            if (err) {
+              reject(err);
+            } else {
+              console.log('Success');
+              resolve();
+            }
+          }
+        );
+      }
+    });
+  };
+
 module.exports = {
   getAllEmployees,
   getEmployeeID,
@@ -141,5 +180,6 @@ module.exports = {
   getManagerByID,
   getAllEmployeesByDepartment,
   getAllEmployeesByManager,
-  getAllManagers
+  getAllManagers,
+  insertEmployee
 };

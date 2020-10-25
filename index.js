@@ -4,7 +4,8 @@ const displayBanner = require('./utils/banner');
 const {
     displayAllEmployees,
     displayAllEmployeesByDepartment,
-    displayAllEmployeesByManager
+    displayAllEmployeesByManager,
+    addEmployee
   } = require('./controllers/employee');
   const { displayAllRoles } = require('./controllers/role');
   const { displayAllDepartments } = require('./controllers/department');
@@ -65,7 +66,8 @@ async function promptUser() {
             promptUser();
             break;
         case "add employee":
-            console.log("add employee");
+            await addEmployee();
+            promptUser();
             break;
         case "remove employee":
             console.log("remove employee");

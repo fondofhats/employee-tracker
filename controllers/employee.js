@@ -3,14 +3,17 @@ const cTable = require('console.table');
 
 const {
     getEmployeeID,
+    getAllEmployees,
     getAllEmployeesDetails,
     getManagerByID,
     getAllEmployeesByDepartment,
     getAllEmployeesByManager,
-    getAllManagers
+    getAllManagers,
+    insertEmployee
   } = require('../models/employee');
   const { getAllDepartmentNames } = require('./department');
   const { getDepartmentID } = require('../models/department');
+  const { getAllTitles, getRoleID } = require('../models/role');
   const { displayHeadline, displayFooter } = require('../utils/logging');
 
 async function displayAllEmployees() {
@@ -84,9 +87,53 @@ async function displayAllEmployeesByManager() {
     }
   }  
 
+  async function addEmployee() {
+    // Get all titles from the role table
+    const titles = await getAllTitles();
+  
+    // Get the list of employees from employee table
+    const employees = await getAllEmployees();
+    employees.unshift('None');
+  
+    try {
+      const employee = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'firstName',
+          message: "What is the employee's first name? "
+        },
+        {
+          type: 'input',
+          name: 'lastName',
+          message: "What is the employee's last name? "
+        },
+        {
+          type: 'list',
+          name: 'title',
+          message: "What is employee's role? ",
+          choices: titles
+        },
+        {
+          type: 'list',
+          name: 'manager',
+          message: "Who is employee's manager ?",
+          choices: employees
+        }
+      ]);
+  
+      employee.roleID = await getRoleID(employee.title);
+      employee.managerID = await getEmployeeID(employee.manager);
+  
+      await insertEmployee(employee);
+    } catch (err) {
+      if (err) throw err;
+    }
+  }  
+
 module.exports = {
     displayAllEmployees,
     displayAllEmployeesByDepartment,
-    displayAllEmployeesByManager
+    displayAllEmployeesByManager,
+    addEmployee
   };
   
