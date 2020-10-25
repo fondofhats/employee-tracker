@@ -2,7 +2,8 @@ const inquirer = require('inquirer');
 
 const { 
   getAllDepartments,
-  insertDepartment
+  insertDepartment,
+  deleteDepartment
  } = require("../models/department");
 const { displayHeadline, displayFooter } = require("../utils/logging");
 
@@ -48,9 +49,29 @@ async function addDepartment() {
   }
 }
 
+async function removeDepartment() {
+  try {
+    const departmentNames = await getAllDepartmentNames();
+
+    const department = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'name',
+        message: 'Which department would you like to remove? ',
+        choices: departmentNames
+      }
+    ]);
+
+    await deleteDepartment(department.name);
+  } catch (err) {
+    if (err) throw err;
+  }
+}
+
 
 module.exports = {
   getAllDepartmentNames,
   displayAllDepartments,
-  addDepartment
+  addDepartment,
+  removeDepartment
 };

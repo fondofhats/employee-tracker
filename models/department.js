@@ -39,8 +39,22 @@ const insertDepartment = (departmentName) => {
   });
 };
 
+const deleteDepartment = (departmentName) => {
+  return new Promise((resolve, reject) => {
+    const query = "DELETE FROM department WHERE name = ?";
+    mysql.query(query, [departmentName], err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve('Success');
+      }
+    });
+  });
+};
+
 module.exports = {
   getDepartmentID,
   getAllDepartments,
-  insertDepartment
+  insertDepartment,
+  deleteDepartment
 };

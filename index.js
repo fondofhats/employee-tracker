@@ -13,7 +13,8 @@ const {
   const { displayAllRoles } = require('./controllers/role');
   const { 
       displayAllDepartments,
-      addDepartment
+      addDepartment,
+      removeDepartment
      } = require('./controllers/department');
 
 async function Init() {
@@ -92,7 +93,8 @@ async function promptUser() {
             promptUser();
             break;
         case "remove department":
-            console.log("remove department");
+            await removeDepartment();
+            promptUser();
             break;
         case "add role":
             console.log("add role");
