@@ -51,7 +51,7 @@ cd employee-tracker
 ### Screenshot
 #### Demonstration
 
-![Weather Dashboard](https://raw.githubusercontent.com/fondofhats/employee-tracker/master/employee-tracker.png)
+![Employee Tracker](https://raw.githubusercontent.com/fondofhats/employee-tracker/master/employee-tracker.png)
 
 <br>
 
