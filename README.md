@@ -48,11 +48,12 @@ cd employee-tracker
 
 ```
 
-### Screenshot
+### Application
 #### Demonstration
 
 View the [Walkthrough video here.](https://drive.google.com/file/d/1_ID3YpsbCSwlYfIo_6a0jfqoFuB2i94P/view)
 
+### Screenshot
 ![Employee Tracker](https://raw.githubusercontent.com/fondofhats/employee-tracker/main/employee-tracker.png)
 
 <br>
